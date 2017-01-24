@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.1.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		var width = $('canvas').width();
+		var height = $('canvas').height();
+		var drawDot = function(x, y) {
+			var c = document.getElementById("canvas");
+			var ctx = c.getContext("2d");
+			ctx.moveTo(x, y);// Refer to the upper left corner.
+			ctx.lineTo(x + 1, y + 1);
+			ctx.moveTo(x, y + 1);// Refer to the upper left corner.
+			ctx.lineTo(x + 1, y);
+			ctx.stroke();
+		};
+		$('#draw').click(function() {
+			var periodCount = $('#periodCount').val();
+			var amplitude = $('#amplitude').val();
+			for (var i = 0; i < width; i++) {
+				drawDot(i, height / 2 - amplitude * Math.sin(2 * periodCount * Math.PI * i / width));
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<canvas id="canvas" width="1280" height="768"
+		style="border: 1px solid #000000;"></canvas>
+	<div>
+		<div>
+			Period Count<input id="periodCount" type="text" />
+		</div>
+		<div>
+			Amplitude<input id="amplitude" type="text" />
+		</div>
+		<div>
+			<button id="draw">Draw</button>
+		</div>
+	</div>
+</body>
+</html>
